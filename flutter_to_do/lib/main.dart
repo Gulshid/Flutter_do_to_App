@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:flutter_to_do/Data/Utills/Routes/Route_name.dart';
+import 'package:flutter_to_do/View_model/To_do_provider.dart';
+// import 'package:hive/hive.dart';
+// import 'package:hive_flutter/adapters.dart';
+// import 'package:nested/nested.dart';
 import 'package:provider/provider.dart';
 
 
-void main() async {
-  //Hive database initialization
-  await Hive.initFlutter();
-  var box = await Hive.openBox('TO_DO');
-  Hive.init(box.path);
+void main()  {
   runApp(const MyApp());
 }
 
@@ -25,7 +24,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
       return MultiProvider(
           providers: [
-            // ChangeNotifierProvider(create: (_) => ()),
+            ChangeNotifierProvider(create: (_) => ToDoProvider()),
 
           ],
 
@@ -45,8 +44,8 @@ class MyApp extends StatelessWidget {
                 ),
 
                 
-                // home:HomeScreen(),
-                // initialRoute:RouteName.login,
+                // home:hello(),
+                initialRoute: RouteName.Splash_Screen,
                 // onGenerateRoute: Routes.generateRoute,
               );
             },
