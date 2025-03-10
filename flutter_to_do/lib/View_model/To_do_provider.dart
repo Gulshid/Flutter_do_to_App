@@ -1,5 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_to_do/Data/Utills/Routes/Route_name.dart';
+import 'package:flutter_to_do/Model_/todo_model.dart';
+import 'package:hive_flutter/adapters.dart';
 
 class ToDoProvider with ChangeNotifier {
   //for loader function
@@ -24,6 +26,38 @@ class ToDoProvider with ChangeNotifier {
     set_loading(true);
     splash(context);
     set_loading(false);
+  }
 
+  late Box<TodoModel> Todo_box;
+  ToDoViewModel() {
+    Todo_box = Hive.box('TODO');
+    loadToDoList();
+  }
+
+  List<TodoModel> _ToDoList = [];
+  List<TodoModel> get ToDoList => _ToDoList;
+
+  void loadToDoList() {
+    _ToDoList = Todo_box.values.toList();
+    notifyListeners();
+  }
+
+  void add_Todo(TodoModel todo) {
+    Todo_box.add(todo);
+    loadToDoList();
+  }
+
+  void remove_todo(int index) {
+    Todo_box.deleteAt(index);
+    loadToDoList();
+  }
+
+  void toggle_todo_Completion(int index) {
+    var todo = Todo_box.getAt(index);
+    if (todo == null) {
+      todo?.incomplete = !todo.incomplete!;
+      todo?.save();
+      loadToDoList();
+    }
   }
 }
