@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_to_do/Data/Utills/Routes/Route_name.dart';
+import 'package:flutter_to_do/Data/Utills/Routes/Routes.dart';
 import 'package:flutter_to_do/View_model/To_do_provider.dart';
 // import 'package:hive/hive.dart';
 // import 'package:hive_flutter/adapters.dart';
@@ -45,8 +46,8 @@ class MyApp extends StatelessWidget {
 
                 
                 // home:hello(),
-                initialRoute: RouteName.Splash_Screen,
-                // onGenerateRoute: Routes.generateRoute,
+                initialRoute: RouteName.Home_Screen,
+                onGenerateRoute: Routes.generateRoute,
               );
             },
           ),

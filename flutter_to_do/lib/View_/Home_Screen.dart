@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class Home_Screen extends StatefulWidget {
-  const Home_Screen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<Home_Screen> createState() => _Home_ScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _Home_ScreenState extends State<Home_Screen> {
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Container(
+      height: 400.h,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.deepPurpleAccent,
+        borderRadius: BorderRadius.circular(20.r),
+      ),
+      child:Center(child: Text('Hello',style: TextStyle(color:Colors.black,fontSize: 30.sp),),),
+    );
   }
 }
