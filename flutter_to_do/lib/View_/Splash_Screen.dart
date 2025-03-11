@@ -31,7 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.circular(6.r),
+              borderRadius: BorderRadius.circular(3.r),
               child: Image.asset('assets/app_icon.png',width: 100.w,height: 100.h,fit: BoxFit.cover,),
             ),
 

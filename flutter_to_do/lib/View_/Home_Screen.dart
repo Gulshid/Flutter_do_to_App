@@ -53,6 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     onPressed: (context) {
                       todoViewModel.deleteTask(index);
                     },
+                    borderRadius: BorderRadius.circular(10.r),
                     backgroundColor: Colors.red,
                     foregroundColor: Colors.white,
                     icon: Icons.delete,
@@ -61,18 +62,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               child: Container(
+                height: 80.h,
+                width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   color: Colors.yellow.shade300,
                 ),
-                child: ListTile(
-                  leading: Checkbox(
-                    value: todo.iscomplete,
-                    onChanged: (_) => todoViewModel.toggleTask(index),
-                  ),
-                  title: Text(
-                    todo.Task.toString(),
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                child: Center(
+                  child: ListTile(
+                    leading: Checkbox(
+                      value: todo.iscomplete,
+                      onChanged: (_) => todoViewModel.toggleTask(index),
+                    ),
+                    title: Text(
+                      todo.Task.toString(),
+                      style: GoogleFonts.agbalumo(fontSize: 18.sp,color: Colors.black),
+                    ),
                   ),
                 ),
               ),
@@ -120,7 +125,8 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Text("Save", style: TextStyle(color: Colors.black)),
             style: ButtonStyle(
               backgroundColor:
-                  WidgetStateProperty.all(Colors.yellow.shade300),
+                  // ignore: deprecated_member_use
+                  MaterialStateProperty.all(Colors.yellow.shade300),
             ),
           ),
           TextButton(
@@ -128,7 +134,8 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Text("Cancel", style: TextStyle(color: Colors.black)),
             style: ButtonStyle(
               backgroundColor:
-                  WidgetStateProperty.all(Colors.yellow.shade300),
+                  // ignore: deprecated_member_use
+                  MaterialStateProperty.all(Colors.yellow.shade300),
             ),
           ),
         ],

@@ -11,14 +11,11 @@ import 'package:provider/provider.dart';
 
 void main() async {
   //Hive local Database
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await Hive.initFlutter();
-  // Hive.registerAdapter(TodoModelAdapter());
-  // await Hive.openBox<TodoModel>('TODO');
+  WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  var box = await Hive.openBox('TO_DO');
-  Hive.init(box.path);
   Hive.registerAdapter(TodoModelAdapter());
+  await Hive.openBox<TodoModel>('TODO');
+ 
 
   runApp(const MyApp());
 }
@@ -51,7 +48,7 @@ class MyApp extends StatelessWidget {
                 ),
 
                 // home:hello(),
-                initialRoute: RouteName.Home_Screen,
+                initialRoute: RouteName.Splash_Screen,
                 onGenerateRoute: Routes.generateRoute,
               );
             },

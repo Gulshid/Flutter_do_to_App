@@ -31,7 +31,7 @@ class ToDoProvider with ChangeNotifier {
 
   late Box<TodoModel> _todoBox;
   
-  ToDoViewModel() {
+  ToDoProvider() {
     _todoBox = Hive.box<TodoModel>('TODO'); // Ensure box is opened
   }
 
