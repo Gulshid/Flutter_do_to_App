@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_to_do/Data/Utills/Routes/Route_name.dart';
-import 'package:flutter_to_do/Model_/todo_model.dart';
+import 'package:flutter_to_do/Model_/TodoModel.dart';
+
 import 'package:hive_flutter/adapters.dart';
 
 class ToDoProvider with ChangeNotifier {
@@ -28,36 +29,30 @@ class ToDoProvider with ChangeNotifier {
     set_loading(false);
   }
 
-  late Box<TodoModel> Todo_box;
+  late Box<TodoModel> _todoBox;
+  
   ToDoViewModel() {
-    Todo_box = Hive.box('TODO');
-    loadToDoList();
+    _todoBox = Hive.box<TodoModel>('TODO'); // Ensure box is opened
   }
 
-  List<TodoModel> _ToDoList = [];
-  List<TodoModel> get ToDoList => _ToDoList;
 
-  void loadToDoList() {
-    _ToDoList = Todo_box.values.toList();
+
+   List<TodoModel> get todos => _todoBox.values.toList();
+
+  void addTask(String task) {
+    _todoBox.add(TodoModel(Task: task));
     notifyListeners();
   }
 
-  void add_Todo(TodoModel todo) {
-    Todo_box.add(todo);
-    loadToDoList();
+  void toggleTask(int index) {
+    TodoModel todo = _todoBox.getAt(index)!;
+    _todoBox.putAt(index, TodoModel(Task: todo.Task,iscomplete: !todo.iscomplete!));
+    notifyListeners();
   }
 
-  void remove_todo(int index) {
-    Todo_box.deleteAt(index);
-    loadToDoList();
-  }
-
-  void toggle_todo_Completion(int index) {
-    var todo = Todo_box.getAt(index);
-    if (todo == null) {
-      todo?.incomplete = !todo.incomplete!;
-      todo?.save();
-      loadToDoList();
-    }
+  void deleteTask(int index) {
+    _todoBox.deleteAt(index);
+    notifyListeners();
   }
 }
+

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_to_do/Model_/todo_model.dart';
 import 'package:flutter_to_do/View_model/To_do_provider.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+// import 'package:flutter_to_do/Model_/todo_model.dart';
+// import 'package:flutter_to_do/View_model/To_do_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,6 +18,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final todoViewModel = Provider.of<ToDoProvider>(context);
     return Scaffold(
       backgroundColor: Colors.deepPurpleAccent[100],
       appBar: AppBar(
@@ -29,37 +33,107 @@ class _HomeScreenState extends State<HomeScreen> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.r),
         ),
-        onPressed: () {
-          final new_todo = TodoModel(
-            id: DateTime.now().toString(),
-            title: 'New TODO',
-          );
-          context.read<ToDoProvider>().add_Todo(new_todo);
-        },
+        onPressed: () => _showAddTaskDialog(context),
         child: Icon(Icons.add, color: Colors.white, size: 30.sp),
       ),
-      body: Consumer<ToDoProvider>(
-        builder: (context, value, child) {
-          return ListView.builder(
-            itemCount: value.ToDoList.length,
-            itemBuilder: (context, index) {
-              final toDo = value.ToDoList[index];
-              return ListTile(
-                title: Text(toDo.title.toString()),
-                trailing: Checkbox(
-                  value: toDo.incomplete,
-                  onChanged: (Value) {
-                    value.toggle_todo_Completion(index);
-                  },
+      body: ListView.builder(
+        padding: EdgeInsets.all(10),
+        itemCount: todoViewModel.todos.length,
+        itemBuilder: (context, index) {
+          final todo = todoViewModel.todos[index];
+
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5),
+            child: Slidable(
+              key: ValueKey(todo.Task), // Unique key for animation
+              endActionPane: ActionPane(
+                motion: const StretchMotion(),
+                children: [
+                  SlidableAction(
+                    onPressed: (context) {
+                      todoViewModel.deleteTask(index);
+                    },
+                    backgroundColor: Colors.red,
+                    foregroundColor: Colors.white,
+                    icon: Icons.delete,
+                    label: 'Delete',
+                  ),
+                ],
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.yellow.shade300,
                 ),
-                onLongPress: () {
-                  value.remove_todo(index);
-                },
-              );
-            },
+                child: ListTile(
+                  leading: Checkbox(
+                    value: todo.iscomplete,
+                    onChanged: (_) => todoViewModel.toggleTask(index),
+                  ),
+                  title: Text(
+                    todo.Task.toString(),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                  ),
+                ),
+              ),
+            ),
           );
         },
+      ),
+      
+      
+    );
+    
+  }
+
+  void _showAddTaskDialog(BuildContext context) {
+    final TextEditingController _controller = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.purple.shade200,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: Text("Enter the Task here", textAlign: TextAlign.center),
+        content: TextField(
+          controller: _controller,
+          decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+              borderSide: BorderSide(color: Colors.blueAccent),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+              borderSide: BorderSide(color: Colors.blue),
+            ),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              if (_controller.text.isNotEmpty) {
+                Provider.of<ToDoProvider>(context, listen: false)
+                    .addTask(_controller.text);
+                Navigator.pop(context);
+              }
+            },
+            child: Text("Save", style: TextStyle(color: Colors.black)),
+            style: ButtonStyle(
+              backgroundColor:
+                  WidgetStateProperty.all(Colors.yellow.shade300),
+            ),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text("Cancel", style: TextStyle(color: Colors.black)),
+            style: ButtonStyle(
+              backgroundColor:
+                  WidgetStateProperty.all(Colors.yellow.shade300),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
+
