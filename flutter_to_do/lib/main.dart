@@ -4,9 +4,8 @@ import 'package:flutter_to_do/Data/Utills/Routes/Route_name.dart';
 import 'package:flutter_to_do/Data/Utills/Routes/Routes.dart';
 import 'package:flutter_to_do/Model_/TodoModel.dart';
 import 'package:flutter_to_do/View_model/To_do_provider.dart';
-import 'package:hive/hive.dart';
+// import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
-// import 'package:nested/nested.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -47,8 +46,8 @@ class MyApp extends StatelessWidget {
                 ),
 
                 // home:hello(),
-                initialRoute: RouteName.Splash_Screen,
-                onGenerateRoute: Routes.generateRoute,
+                initialRoute: RouteName.Splash,
+                onGenerateRoute: Routes.generate_Route,
               );
             },
           ),

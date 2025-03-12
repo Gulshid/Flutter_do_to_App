@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 5),
             child: Slidable(
-              key: ValueKey(todo.Task), // Unique key for animation
+              key: ValueKey(todo.task), // Unique key for animation
               endActionPane: ActionPane(
                 motion: const StretchMotion(),
                 children: [
@@ -71,11 +71,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Center(
                   child: ListTile(
                     leading: Checkbox(
-                      value: todo.iscomplete,
+                      value: todo.iscompleted,
                       onChanged: (_) => todoViewModel.toggleTask(index),
                     ),
                     title: Text(
-                      todo.Task.toString(),
+                      todo.task.toString(),
                       style: GoogleFonts.agbalumo(fontSize: 18.sp,color: Colors.black),
                     ),
                   ),

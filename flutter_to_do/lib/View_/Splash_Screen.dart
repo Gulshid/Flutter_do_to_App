@@ -27,23 +27,32 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(3.r),
-              child: Image.asset('assets/app_icon.png',width: 100.w,height: 100.h,fit: BoxFit.cover,),
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          ClipRRect(
+            child: Image.asset(
+              'assets/app_icon.png',
+              width: 100.w,
+              height: 100.h,
+              fit: BoxFit.cover,
             ),
+          ),
 
-            Center(
-              child: Text('To Do App', style:GoogleFonts.agbalumo(color: Colors.blue,fontSize: 30.sp,fontWeight: FontWeight.bold)),
+          Center(
+            child: Text(
+              'To Do App',
+              style: GoogleFonts.agbalumo(
+                color: Colors.blue,
+                fontSize: 30.sp,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            SizedBox(height: 30.h,),
-            SpinKitFadingCircle(color: Colors.blue,size: 50.sp,)
-            
-          ],
-        ),
-    
+          ),
+          SizedBox(height: 30.h),
+          SpinKitFadingCircle(color: Colors.blue, size: 50.sp),
+        ],
+      ),
     );
   }
 }

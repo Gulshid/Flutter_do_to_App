@@ -6,6 +6,7 @@ import 'package:hive_flutter/adapters.dart';
 
 class ToDoProvider with ChangeNotifier {
   //for loader function
+  //define the getter for loading
   bool _isloading = false;
   bool get isloading => _isloading;
 
@@ -17,8 +18,8 @@ class ToDoProvider with ChangeNotifier {
 
   //for splash screen time
   void splash(BuildContext context) {
-    Future.delayed(Duration(seconds: 5), () {
-      Navigator.pushReplacementNamed(context, RouteName.Home_Screen);
+    Future.delayed(Duration(seconds: 3), () {
+      Navigator.pushReplacementNamed(context, RouteName.home);
     });
   }
 
@@ -30,23 +31,24 @@ class ToDoProvider with ChangeNotifier {
   }
 
   late Box<TodoModel> _todoBox;
-  
+
   ToDoProvider() {
-    _todoBox = Hive.box<TodoModel>('TODO'); 
+    _todoBox = Hive.box<TodoModel>('TODO'); // Ensure box is opened
   }
 
-
-
-List<TodoModel> get todos => _todoBox.values.toList();
+  List<TodoModel> get todos => _todoBox.values.toList();
 
   void addTask(String task) {
-    _todoBox.add(TodoModel(Task: task));
+    _todoBox.add(TodoModel(task: task));
     notifyListeners();
   }
 
   void toggleTask(int index) {
     TodoModel todo = _todoBox.getAt(index)!;
-    _todoBox.putAt(index, TodoModel(Task: todo.Task,iscomplete: !todo.iscomplete!));
+    _todoBox.putAt(
+      index,
+      TodoModel(task: todo.task, iscompleted: !todo.iscompleted!),
+    );
     notifyListeners();
   }
 
@@ -55,4 +57,3 @@ List<TodoModel> get todos => _todoBox.values.toList();
     notifyListeners();
   }
 }
-

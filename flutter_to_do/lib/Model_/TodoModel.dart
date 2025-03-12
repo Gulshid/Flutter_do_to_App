@@ -4,10 +4,10 @@ part 'TodoModel.g.dart';
 @HiveType(typeId: 0)
 class TodoModel extends HiveObject {
   @HiveField(0)
-  String? Task;
+  String? task;
 
   @HiveField(1)
-  bool? iscomplete;
+  bool? iscompleted;
 
-  TodoModel({required this.Task, this.iscomplete = false});
+  TodoModel({required this.task, this.iscompleted = false});
 }

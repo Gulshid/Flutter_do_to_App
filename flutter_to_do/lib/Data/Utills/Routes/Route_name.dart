@@ -1,4 +1,4 @@
 class RouteName {
-  static const String Splash_Screen = 'Splash Screen';
-  static const String Home_Screen  = 'Home Screen';
+  static const String Splash = 'Splash';
+  static const String home = 'home';
 }
