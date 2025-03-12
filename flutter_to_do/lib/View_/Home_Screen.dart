@@ -99,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context) => AlertDialog(
         backgroundColor: Colors.purple.shade200,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: Text("Enter the Task here", textAlign: TextAlign.center),
+        title: Text("Enter the task here", textAlign: TextAlign.center),
         content: TextField(
           controller: _controller,
           decoration: InputDecoration(

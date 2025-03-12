@@ -32,12 +32,12 @@ class ToDoProvider with ChangeNotifier {
   late Box<TodoModel> _todoBox;
   
   ToDoProvider() {
-    _todoBox = Hive.box<TodoModel>('TODO'); // Ensure box is opened
+    _todoBox = Hive.box<TodoModel>('TODO'); 
   }
 
 
 
-   List<TodoModel> get todos => _todoBox.values.toList();
+List<TodoModel> get todos => _todoBox.values.toList();
 
   void addTask(String task) {
     _todoBox.add(TodoModel(Task: task));
