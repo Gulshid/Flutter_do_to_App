@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_to_do/Data/Utills/Routes/Route_name.dart';
+import 'package:flutter_to_do/Data/Utills/Route_name.dart';
 import 'package:flutter_to_do/View_/Home_Screen.dart';
-import 'package:flutter_to_do/View_/Splash_Screen.dart';
+import 'package:flutter_to_do/View_/splash.dart';
 
 class Routes {
-  static Route<dynamic> generate_Route(RouteSettings settings) {
+  static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case RouteName.Splash:
+      case Route_name.splash:
         {
           return MaterialPageRoute(
-            builder: (BuildContext context) => SplashScreen(),
+            builder: (BuildContext context) => Splash_Screen(),
           );
         }
 
-      case RouteName.home:
+      case Route_name.home:
         {
           return MaterialPageRoute(
             builder: (BuildContext context) => HomeScreen(),
@@ -26,7 +26,7 @@ class Routes {
           return MaterialPageRoute(
             builder:
                 (_) => Scaffold(
-                  body: Center(child: Text('no page route is available')),
+                  body: Center(child: Text('No Route Available...')),
                 ),
           );
         }

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'TodoModel.dart';
+part of 'Todo_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
@@ -18,7 +18,7 @@ class TodoModelAdapter extends TypeAdapter<TodoModel> {
     };
     return TodoModel(
       task: fields[0] as String?,
-      iscompleted: fields[1] as bool?,
+      IsCompleted: fields[1] as bool?,
     );
   }
 
@@ -29,7 +29,7 @@ class TodoModelAdapter extends TypeAdapter<TodoModel> {
       ..writeByte(0)
       ..write(obj.task)
       ..writeByte(1)
-      ..write(obj.iscompleted);
+      ..write(obj.IsCompleted);
   }
 
   @override

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_to_do/Data/Utills/Routes/Route_name.dart';
-import 'package:flutter_to_do/Data/Utills/Routes/Routes.dart';
-import 'package:flutter_to_do/Model_/TodoModel.dart';
-import 'package:flutter_to_do/View_model/To_do_provider.dart';
-// import 'package:hive/hive.dart';
+import 'package:flutter_to_do/Data/Utills/Route_name.dart';
+import 'package:flutter_to_do/Data/Utills/Routes.dart';
+import 'package:flutter_to_do/Model_/Todo_model.dart';
+import 'package:flutter_to_do/View_model/Todo_Provider.dart';
+import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 
@@ -29,14 +29,15 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         return MultiProvider(
-          providers: [ChangeNotifierProvider(create: (_) => ToDoProvider())],
+          providers: [ChangeNotifierProvider(create: (_) => TodoProvider())],
 
           child: Builder(
             builder: (BuildContext context) {
               return MaterialApp(
                 debugShowCheckedModeBanner: false,
-                title: 'Flutter To do App',
+                title: 'To do App',
                 theme: ThemeData(
+                  applyElevationOverlayColor: true,
                   brightness: Brightness.light,
                   appBarTheme: AppBarTheme(color: Colors.deepPurple),
                   primarySwatch: Colors.blue,
@@ -45,9 +46,8 @@ class MyApp extends StatelessWidget {
                   ),
                 ),
 
-                // home:hello(),
-                initialRoute: RouteName.Splash,
-                onGenerateRoute: Routes.generate_Route,
+                initialRoute: Route_name.splash,
+                onGenerateRoute: Routes.generateRoute,
               );
             },
           ),

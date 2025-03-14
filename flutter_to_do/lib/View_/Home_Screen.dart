@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_to_do/View_model/To_do_provider.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-// import 'package:flutter_to_do/Model_/todo_model.dart';
-// import 'package:flutter_to_do/View_model/To_do_provider.dart';
+import 'package:flutter_to_do/View_/dialog.dart';
+import 'package:flutter_to_do/View_model/Todo_Provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-// import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,45 +16,36 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final todoViewModel = Provider.of<ToDoProvider>(context);
+    final Todo = Provider.of<TodoProvider>(context);
     return Scaffold(
-      backgroundColor: Colors.deepPurpleAccent[100],
       appBar: AppBar(
         title: Text(
           'To Do App',
-          style: GoogleFonts.agbalumo(color: Colors.white, fontSize: 20.sp),
+          style: GoogleFonts.agbalumo(color: Colors.white, fontSize: 25.sp),
         ),
         centerTitle: true,
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.deepPurple,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.r),
-        ),
-        onPressed: () => _showAddTaskDialog(context),
-        child: Icon(Icons.add, color: Colors.white, size: 30.sp),
-      ),
+      backgroundColor: Colors.deepPurple[200],
       body: ListView.builder(
         padding: EdgeInsets.all(10),
-        itemCount: todoViewModel.todos.length,
+        itemCount: Todo.todo.length,
         itemBuilder: (context, index) {
-          final todo = todoViewModel.todos[index];
-
+          final val = Todo.todo[index];
           return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 5),
+            padding: EdgeInsets.symmetric(vertical: 5),
             child: Slidable(
-              key: ValueKey(todo.task), // Unique key for animation
+              key: ValueKey(val.task),
               endActionPane: ActionPane(
-                motion: const StretchMotion(),
+                motion: StretchMotion(),
                 children: [
                   SlidableAction(
                     onPressed: (context) {
-                      todoViewModel.deleteTask(index);
+                      Todo.delete_task(index);
                     },
-                    borderRadius: BorderRadius.circular(10.r),
-                    backgroundColor: Colors.red,
-                    foregroundColor: Colors.white,
                     icon: Icons.delete,
+                    backgroundColor: Colors.red,
+                    borderRadius: BorderRadius.circular(8.r),
+                    foregroundColor: Colors.white,
                     label: 'Delete',
                   ),
                 ],
@@ -65,18 +54,30 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 80.h,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.yellow.shade300,
+                  color: Colors.teal,
+                  borderRadius: BorderRadius.circular(10.r),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey,
+                      spreadRadius: 5,
+                      blurRadius: 3,
+                    ),
+                  ],
                 ),
                 child: Center(
                   child: ListTile(
                     leading: Checkbox(
-                      value: todo.iscompleted,
-                      onChanged: (_) => todoViewModel.toggleTask(index),
+                      checkColor: Colors.blue,
+                      activeColor: Colors.black,
+                      value: val.IsCompleted,
+                      onChanged: (_) => Todo.toggle(index),
                     ),
                     title: Text(
-                      todo.task.toString(),
-                      style: GoogleFonts.agbalumo(fontSize: 18.sp,color: Colors.black),
+                      val.task.toString(),
+                      style: GoogleFonts.agbalumo(
+                        fontSize: 20.sp,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                 ),
@@ -85,62 +86,15 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         },
       ),
-      
-      
-    );
-    
-  }
 
-  void _showAddTaskDialog(BuildContext context) {
-    final TextEditingController _controller = TextEditingController();
-
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: Colors.purple.shade200,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: Text("Enter the task here", textAlign: TextAlign.center),
-        content: TextField(
-          controller: _controller,
-          decoration: InputDecoration(
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15),
-              borderSide: BorderSide(color: Colors.blueAccent),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(15),
-              borderSide: BorderSide(color: Colors.blue),
-            ),
-          ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.deepPurple,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.r),
         ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              if (_controller.text.isNotEmpty) {
-                Provider.of<ToDoProvider>(context, listen: false)
-                    .addTask(_controller.text);
-                Navigator.pop(context);
-              }
-            },
-            child: Text("Save", style: TextStyle(color: Colors.black)),
-            style: ButtonStyle(
-              backgroundColor:
-                  // ignore: deprecated_member_use
-                  MaterialStateProperty.all(Colors.yellow.shade300),
-            ),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text("Cancel", style: TextStyle(color: Colors.black)),
-            style: ButtonStyle(
-              backgroundColor:
-                  // ignore: deprecated_member_use
-                  MaterialStateProperty.all(Colors.yellow.shade300),
-            ),
-          ),
-        ],
+        onPressed: () => dialoge(context),
+        child: Icon(Icons.add, color: Colors.white, size: 20.sp),
       ),
     );
   }
 }
-
