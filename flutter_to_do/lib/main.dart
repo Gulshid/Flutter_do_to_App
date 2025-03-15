@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_to_do/Data/Utills/Route_name.dart';
-import 'package:flutter_to_do/Data/Utills/Routes.dart';
+import 'package:flutter_to_do/Data/Utills/Route/Routes.dart';
+import 'package:flutter_to_do/Data/Utills/Route/RoutesName.dart';
 import 'package:flutter_to_do/Model_/Todo_model.dart';
-import 'package:flutter_to_do/View_model/Todo_Provider.dart';
+import 'package:flutter_to_do/View_model/TodoProvider.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         return MultiProvider(
-          providers: [ChangeNotifierProvider(create: (_) => TodoProvider())],
+          providers: [ChangeNotifierProvider(create: (_) => Todoprovider())],
 
           child: Builder(
             builder: (BuildContext context) {
@@ -45,8 +45,7 @@ class MyApp extends StatelessWidget {
                     fontSizeFactor: 1.sp,
                   ),
                 ),
-
-                initialRoute: Route_name.splash,
+                initialRoute: Routesname.Splash,
                 onGenerateRoute: Routes.generateRoute,
               );
             },

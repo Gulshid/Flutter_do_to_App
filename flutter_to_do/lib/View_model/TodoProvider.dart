@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_to_do/Data/Utills/Route_name.dart';
+import 'package:flutter_to_do/Data/Utills/Route/RoutesName.dart';
 import 'package:flutter_to_do/Model_/Todo_model.dart';
 import 'package:hive/hive.dart';
 
-class TodoProvider extends ChangeNotifier {
+class Todoprovider with ChangeNotifier {
   bool _loading = false;
   bool get loading => _loading;
 
-  void set_loading(bool value) {
+  set_loading(bool value) {
     _loading = value;
     notifyListeners();
   }
 
   void splash(BuildContext context) {
     Future.delayed(Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context, Route_name.home);
+      Navigator.pushReplacementNamed(context, Routesname.Home);
     });
   }
 
@@ -25,18 +25,19 @@ class TodoProvider extends ChangeNotifier {
   }
 
   late Box<TodoModel> _todo;
-  TodoProvider() {
-    _todo = Hive.box<TodoModel>('TODO');
+  Todoprovider() {
+    _todo = Hive.box<TodoModel>('Todo');
   }
 
   List<TodoModel> get todo => _todo.values.toList();
-  //function for add task
+
+  //function for add the task
   void add_task(String task) {
     _todo.add(TodoModel(task: task));
     notifyListeners();
   }
 
-  //function for toggle
+  //function for toggle update
   void toggle(int index) {
     TodoModel t = _todo.getAt(index)!;
     _todo.putAt(index, TodoModel(task: t.task, IsCompleted: !t.IsCompleted!));
