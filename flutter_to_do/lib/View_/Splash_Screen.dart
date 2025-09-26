@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_to_do/View_model/TodoProvider.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,18 +30,26 @@ class _SplashScreenState extends State<SplashScreen> {
 
         children: [
           ClipRRect(
-            child: Image.asset('assets/app_icon.png',width: 100.w, height: 100.h, fit: BoxFit.fill,),
+            child: Image.asset(
+              'assets/app_icon.png',
+              width: 100,
+              height: 100,
+              fit: BoxFit.fill,
+            ),
           ),
 
-
-          
           Center(
-            child: Text('To Do App',
-              style: GoogleFonts.agbalumo(fontSize: 30.sp, color: Colors.blue,  fontWeight: FontWeight.bold),),
+            child: Text(
+              'To Do App',
+              style: GoogleFonts.agbalumo(
+                fontSize: 30,
+                color: Colors.blue,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
 
-          SpinKitCircle(color: Colors.blue, size: 60.sp,),
-
+          const SpinKitCircle(color: Colors.blue, size: 60),
         ],
       ),
     );
