@@ -85,7 +85,7 @@ void Alert_dialoge(BuildContext context) {
               ),
               // ignore: deprecated_member_use
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.pinkAccent),
+                backgroundColor: WidgetStateProperty.all(Colors.pinkAccent),
               ),
             ),
           ],
